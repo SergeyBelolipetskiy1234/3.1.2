@@ -6,9 +6,8 @@ $(document).ready(function (){
 
     $('.table .eBtn').on('click', function (event){
         event.preventDefault();
-        var href = $(this).attr('href');
-        var text = $(this).text();
-            $.get(href, function (user, status) {
+        let href = $(this).attr('href');
+            $.get(href, function (user) {
                 $('.myForm #id').attr('readonly','readonly').val(user.id);
                 $('.myForm #username').val(user.username);
                 $('.myForm #surname').val(user.surname);
@@ -21,15 +20,11 @@ $(document).ready(function (){
             $('.myForm #exampleModal').modal();
 
     });
-});
-
-$(document).ready(function (){
 
     $(' .table .dBtn').on('click', function (event){
         event.preventDefault();
-        var href = $(this).attr('href');
-
-        $.get(href, function (user, status) {
+        let href = $(this).attr('href');
+        $.get(href, function (user) {
             $('.myFormDelete #id1').attr('readonly','readonly').val(user.id);
             $('.myFormDelete #username1').attr('readonly','readonly').val(user.username);
             $('.myFormDelete #surname1').attr('readonly','readonly').val(user.surname);

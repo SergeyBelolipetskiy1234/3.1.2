@@ -3,12 +3,10 @@ package com.example.belolipetsckiy.belolipetsckiy_boot.controllers;
 import com.example.belolipetsckiy.belolipetsckiy_boot.models.Role;
 import com.example.belolipetsckiy.belolipetsckiy_boot.models.User;
 import com.example.belolipetsckiy.belolipetsckiy_boot.service.RoleService;
-import com.example.belolipetsckiy.belolipetsckiy_boot.service.UserRepository;
 import com.example.belolipetsckiy.belolipetsckiy_boot.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +19,6 @@ public class UserController {
 
     private UserService userService;
     private RoleService roleService;
-    private UserRepository repository;
 
     public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
@@ -38,10 +35,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String addUser(@ModelAttribute @Valid User user, BindingResult bindingResult, @RequestParam(value = "checkRoles", required = false) String[] checkRoles) {
-        if(bindingResult.hasErrors())
-            return "user/new";
-
+    public String addUser(@ModelAttribute @Valid User user, @RequestParam(value = "checkRoles", required = false) String[] checkRoles) {
         Set<Role> roleSet = new HashSet<>();
         if(checkRoles == null) {
             roleSet.add(new Role(1L,"USER"));
@@ -67,6 +61,5 @@ public class UserController {
 
         return userService.show(id);
     }
-
 
 }
